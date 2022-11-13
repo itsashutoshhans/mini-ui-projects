@@ -12,7 +12,7 @@ const searchFoodItems = debounce(async (searchText) => {
     suggestionsList.innerHTML = '';
     return;
   }
-  updateHtml(suggestions);
+  updateHtml(searchText, suggestions);
 });
 
 const getFoodItems = async () => {
@@ -28,15 +28,19 @@ const getMatches = (searchText, foodItems) => {
   })
 }
 
-const updateHtml = (suggestions) => {
+const updateHtml = (searchText, suggestions) => {
   if (suggestions.length > 0) {
-    const html = suggestions.map(suggesion => (
-      `
-      <li onclick="handleSuggestionClick(this)">
-        ${suggesion.foodName}
-      </li>
-      `
-    )).join('');
+    const html = suggestions.map(suggestion => {
+      // highlight the searchedText
+      const regex = new RegExp(searchText, 'gi');
+      const displayName = suggestion.foodName.replace(regex, `<span><b>${searchText}</b></span>`);
+      return (
+        `
+        <li onclick="handleSuggestionClick(this)">
+          ${displayName}
+        </li>
+        `
+    )}).join('');
     suggestionsList.innerHTML = html;
   } else {
     suggestionsList.innerHTML = '<div><p>No Results Found</p></div>';

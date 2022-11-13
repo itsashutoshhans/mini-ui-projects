@@ -38,3 +38,18 @@ function debounce(fn, delay=500) {
 };
 ```
 
+### highlighting the searched text
+```js
+// highlight the searchedText
+const regex = new RegExp(searchText, 'gi');
+const displayName = suggestion.foodName.replace(regex, `<span><b>${searchText}</b></span>`);
+return (
+  `
+  <li onclick="handleSuggestionClick(this)">
+    ${displayName}
+  </li>
+  `
+)
+```
+
+
