@@ -4,7 +4,7 @@ const suggestionsList = document.querySelector('.suggestions-list');
 const URL = 'https://gist.githubusercontent.com/itsashutoshhans/9efde041a5d640c29baeb5d14ebed60c/raw/e941b7dccc5551bbd5d6951a1f1d1758b040f42d/food-items.json';
 
 // handlers
-const searchFoodItems = async (searchText) => {
+const searchFoodItems = debounce(async (searchText) => {
   const foodItems = await getFoodItems();
   let suggestions = getMatches(searchText, foodItems);
   if (searchText.length === 0) {
@@ -13,7 +13,7 @@ const searchFoodItems = async (searchText) => {
     return;
   }
   updateHtml(suggestions);
-};
+});
 
 const getFoodItems = async () => {
   const response = await fetch(URL);
@@ -47,6 +47,23 @@ const handleSuggestionClick = (element) => {
   search.value = element.innerText;
   suggestionsList.innerHTML = '';
 }
+
+// debounce
+function debounce(fn, delay=500) {
+  let timeoutId;
+
+  return (...args) => {
+    // cancel the previous timer if any
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    // setup a new timer
+    timeoutId = setTimeout(() => {
+      fn.apply(null, args);
+    }, delay);
+  }
+};
 
 // event listeners
 search.addEventListener('input', (event) => {

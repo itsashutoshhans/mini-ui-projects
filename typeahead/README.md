@@ -18,3 +18,23 @@ const regex = new RegExp(`${searchText}`, `gi`);
 
 > Copy paste is taken care by input event listener
 
+### debounce
+```js
+// debounce
+function debounce(fn, delay=500) {
+  let timeoutId;
+
+  return (...args) => {
+    // cancel the previous timer if any
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    // setup a new timer
+    timeoutId = setTimeout(() => {
+      fn.apply(null, args);
+    }, delay);
+  }
+};
+```
+
