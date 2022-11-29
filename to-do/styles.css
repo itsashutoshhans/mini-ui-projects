@@ -1,0 +1,12 @@
+input:read-only {
+  border: 0px;
+  outline: none;
+}
+
+.list {
+  list-style: none;
+}
+
+.content {
+  display: flex;
+}
