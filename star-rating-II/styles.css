@@ -1,0 +1,25 @@
+body {
+  text-align: center;
+}
+
+.star-empty::before {
+  content: '☆';
+} 
+
+.star-filled::before {
+  color: orange;
+  cursor: pointer;
+  content: '★'
+}
+
+.star-container {
+  font-size: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.rating-info {
+  font-size: 3rem;
+  margin-top: 1rem;
+}
